@@ -34,7 +34,7 @@ public class Calendario extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         scrollPane2 = new java.awt.ScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableCalendario = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,7 +51,8 @@ public class Calendario extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableCalendario.setBackground(new java.awt.Color(204, 255, 204));
+        tableCalendario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -61,8 +62,16 @@ public class Calendario extends javax.swing.JFrame {
             new String [] {
                 "EQUIPO 1", "FECHAHORA", "EQUIPO 2"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tableCalendario);
 
         scrollPane2.add(jScrollPane1);
 
@@ -164,7 +173,7 @@ public class Calendario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private java.awt.ScrollPane scrollPane2;
+    private javax.swing.JTable tableCalendario;
     // End of variables declaration//GEN-END:variables
 }

@@ -123,7 +123,7 @@ public class PagPrincipalAdmin extends javax.swing.JFrame {
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
         // TODO add your handling code here:
         
-        InsertarResultados ir = new InsertarResultados();
+        InsertarEstadisticasJugador ir = new InsertarEstadisticasJugador();
         
         ir.setVisible(true);
         
