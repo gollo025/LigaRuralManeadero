@@ -14,8 +14,9 @@ public class Desarrolladores extends javax.swing.JFrame {
      * Creates new form Desarrolladores
      */
     public Desarrolladores() {
-        initComponents();
-    }
+ initComponents();
+         this.setResizable(false); 
+          this.setLocationRelativeTo(null);    }
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -14,8 +14,9 @@ public class Equipos extends javax.swing.JFrame {
      * Creates new form Equipos
      */
     public Equipos() {
-        initComponents();
-    }
+ initComponents();
+         this.setResizable(false); 
+          this.setLocationRelativeTo(null);    }
 
     /**
      * This method is called from within the constructor to initialize the form.

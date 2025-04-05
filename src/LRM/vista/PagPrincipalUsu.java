@@ -37,6 +37,7 @@ public class PagPrincipalUsu extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,6 +120,9 @@ public class PagPrincipalUsu extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu5);
 
+        jMenu7.setText("MiPerfil");
+        jMenuBar1.add(jMenu7);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -176,7 +180,7 @@ public class PagPrincipalUsu extends javax.swing.JFrame {
 
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
         // TODO add your handling code here:
-         Tabla tab = new Tabla();
+         TablaPosicion tab = new TablaPosicion();
         
         tab.setVisible(true);
         
@@ -194,9 +198,9 @@ public class PagPrincipalUsu extends javax.swing.JFrame {
 
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
         // TODO add your handling code here:
-         Resultados resul = new Resultados();
+       //  Resultados resul = new Resultados();
         
-        resul.setVisible(true);
+        //resul.setVisible(true);
         
         this.dispose();
     }//GEN-LAST:event_jMenu3MouseClicked
@@ -252,6 +256,7 @@ public class PagPrincipalUsu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
