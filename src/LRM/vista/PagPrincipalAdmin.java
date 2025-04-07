@@ -34,6 +34,7 @@ public class PagPrincipalAdmin extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,13 +68,16 @@ public class PagPrincipalAdmin extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("InsResultados");
+        jMenu3.setText("InsEstadJugador");
         jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu3MouseClicked(evt);
             }
         });
         jMenuBar1.add(jMenu3);
+
+        jMenu5.setText("InsEstadEquipo");
+        jMenuBar1.add(jMenu5);
 
         jMenu4.setText("InsHorarios");
         jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -179,6 +183,7 @@ public class PagPrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
