@@ -4,6 +4,8 @@
  */
 package LRM.vista;
 
+import InterfazAdministrador.PagPrincipalAdmin;
+
 /**
  *
  * @author gzlzz

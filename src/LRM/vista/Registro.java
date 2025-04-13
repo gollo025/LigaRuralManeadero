@@ -4,19 +4,28 @@
  */
 package LRM.vista;
 
+import Modelo.LRM.daoUsuario;
+import Modelo.LRM.Usuario;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author gzlzz
  */
 public class Registro extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Registro
-     */
+    daoUsuario dao = new daoUsuario(); // Instancia del DAO para interactuar con la base de datos
+
     public Registro() {
         initComponents();
          this.setResizable(false); 
           this.setLocationRelativeTo(null);
+          
+          
         
     }
 
@@ -35,8 +44,6 @@ public class Registro extends javax.swing.JFrame {
         txtUsuario = new javax.swing.JTextField();
         txtContraseña = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        lblConfirmar = new javax.swing.JLabel();
-        txtConfirmar = new javax.swing.JTextField();
         btnCrear = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
 
@@ -69,22 +76,6 @@ public class Registro extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Sylfaen", 0, 36)); // NOI18N
         jLabel1.setText("REGISTRO");
 
-        lblConfirmar.setFont(new java.awt.Font("Sylfaen", 0, 12)); // NOI18N
-        lblConfirmar.setText("CONFIRMAR:");
-
-        txtConfirmar.setFont(new java.awt.Font("Sylfaen", 0, 12)); // NOI18N
-        txtConfirmar.setText("confirma tu contraseña");
-        txtConfirmar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtConfirmarMouseClicked(evt);
-            }
-        });
-        txtConfirmar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtConfirmarActionPerformed(evt);
-            }
-        });
-
         btnCrear.setFont(new java.awt.Font("Sylfaen", 0, 24)); // NOI18N
         btnCrear.setText("CREAR");
         btnCrear.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Crear el nuevo usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Sylfaen", 0, 12))); // NOI18N
@@ -116,10 +107,6 @@ public class Registro extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(panel1Layout.createSequentialGroup()
-                            .addComponent(lblConfirmar)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtConfirmar))
-                        .addGroup(panel1Layout.createSequentialGroup()
                             .addComponent(lblContraseña)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -142,11 +129,7 @@ public class Registro extends javax.swing.JFrame {
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblContraseña)
                     .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(59, 59, 59)
                 .addComponent(btnCrear)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
@@ -180,18 +163,32 @@ public class Registro extends javax.swing.JFrame {
         txtContraseña.setText("");
     }//GEN-LAST:event_txtContraseñaMouseClicked
 
-    private void txtConfirmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirmarMouseClicked
-        // TODO add your handling code here:
-        txtConfirmar.setText("");
-        
-    }//GEN-LAST:event_txtConfirmarMouseClicked
-
-    private void txtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfirmarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtConfirmarActionPerformed
-
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        // TODO add your handling code here:
+                                     
+    // Captura los valores ingresados en los campos
+    String nombreUsuario = txtUsuario.getText();
+    String contraseña = txtContraseña.getText();
+
+    // Verifica que los campos no estén vacíos
+    if (!nombreUsuario.isEmpty() && !contraseña.isEmpty()) {
+        Usuario user = new Usuario();
+        user.setNombreUsuario(nombreUsuario);
+        user.setPassword(contraseña);
+
+        // Registrar usuario en la base de datos
+        if (dao.create(user)) {
+            JOptionPane.showMessageDialog(this, "SE REGISTRÓ CORRECTAMENTE");
+             // Actualizar la tabla después de registrar
+        } else {
+            JOptionPane.showMessageDialog(this, "HUBO UN ERROR AL REGISTRARSE");
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+    
+}
+
+
+
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -245,11 +242,9 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lblConfirmar;
     private javax.swing.JLabel lblContraseña;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JPanel panel1;
-    private javax.swing.JTextField txtConfirmar;
     private javax.swing.JTextField txtContraseña;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

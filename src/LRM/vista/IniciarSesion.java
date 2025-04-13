@@ -4,6 +4,19 @@
  */
 package LRM.vista;
 
+import Modelo.LRM.daoUsuario;
+import Modelo.LRM.Usuario;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import ClaseConexion.Conexion1;
+
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 /**
  *
  * @author gzlzz
@@ -12,7 +25,11 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     /**
      * Creates new form IniciarSesion
+     *
      */
+    
+    Conexion1 cx = new Conexion1(); // Instancia de la conexión
+
     public IniciarSesion() {
         initComponents();
          this.setResizable(false); 
@@ -194,11 +211,55 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        PagPrincipalUsu pp = new PagPrincipalUsu();
+                                                    
+    Statement st = null;
+    ResultSet rs = null;
+
+    try {
+        // Capturar los datos ingresados en los campos
+        String nombreUsuario = txtUsuario.getText(); // Campo de usuario
+        String contraseña = txtContraseña.getText(); // Campo de contraseña (ahora es JTextField)
+
+        // Verificar que los campos no estén vacíos
+        if (!nombreUsuario.isEmpty() && !contraseña.isEmpty()) {
+            // Conexión a la base de datos
+            String query = "SELECT * FROM usuario WHERE nombreUsuario='" + nombreUsuario + "' AND password='" + contraseña + "'";
+            st = cx.conectar().createStatement(); // Crear statement
+            rs = st.executeQuery(query); // Ejecutar la consulta
+
+            // Validar si el usuario existe en la base de datos
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(this, "EL USUARIO ESTÁ EN EL SISTEMA");
+                
+                // Abrir una nueva ventana después del inicio de sesión exitoso
+                PagPrincipalUsu ppu = new PagPrincipalUsu();
+                ppu.setVisible(true);
+                this.dispose(); // Cierra la ventana de inicio de sesión actual
+            } else {
+                // Mensaje de error si los datos son incorrectos
+                JOptionPane.showMessageDialog(this, "EL USUARIO NO ESTÁ EN EL SISTEMA");
+            }
+
+        } else {
+            // Mostrar mensaje si algún campo está vacío
+            JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+
+    } catch (SQLException ex) {
+        Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(this, "Error al conectarse con la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        // Cerrar recursos (Statement y ResultSet)
+        try {
+            if (rs != null) rs.close();
+            if (st != null) st.close();
+            cx.desconectar();
+        } catch (SQLException ex) {
+            Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
         
-        pp.setVisible(true);
-        
-        this.dispose();
+    }
+}
+
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
