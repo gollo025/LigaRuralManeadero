@@ -9,6 +9,7 @@ import Modelo.LRM.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import ClaseConexion.Conexion1;
+import InterfazAdministrador.PagPrincipalAdmin;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -219,6 +220,9 @@ public class IniciarSesion extends javax.swing.JFrame {
         // Capturar los datos ingresados en los campos
         String nombreUsuario = txtUsuario.getText(); // Campo de usuario
         String contraseña = txtContraseña.getText(); // Campo de contraseña (ahora es JTextField)
+        
+        String url= "select nombreUsuario,password, rol" +" from usuario";
+        
 
         // Verificar que los campos no estén vacíos
         if (!nombreUsuario.isEmpty() && !contraseña.isEmpty()) {
@@ -229,12 +233,39 @@ public class IniciarSesion extends javax.swing.JFrame {
 
             // Validar si el usuario existe en la base de datos
             if (rs.next()) {
+                
+                String rol =rs.getString("rol");
+                
                 JOptionPane.showMessageDialog(this, "EL USUARIO ESTÁ EN EL SISTEMA");
                 
+                
+                if (rol.equals("admin")){
+                    
+                   PagPrincipalAdmin ppa = new PagPrincipalAdmin();
+                   
+                   ppa.setVisible(true);
+                   
+                   this.dispose();
+
+                    
+                   JOptionPane.showMessageDialog(this, "ERES UN ADMINISTRADOR FELICIDADES");
+                    
+                }
+                else{
+                    
+                    PagPrincipalUsu ppu = new PagPrincipalUsu();
+                    
+                    ppu.setVisible(true);
+                    
+                    this.dispose();
+                    
+                    
+                    JOptionPane.showMessageDialog(this, "ERES UN USUARIO POR DEFAULT jijijaja");
+                }
                 // Abrir una nueva ventana después del inicio de sesión exitoso
-                PagPrincipalUsu ppu = new PagPrincipalUsu();
-                ppu.setVisible(true);
-                this.dispose(); // Cierra la ventana de inicio de sesión actual
+               // PagPrincipalUsu ppu = new PagPrincipalUsu();
+               // ppu.setVisible(true);
+               // this.dispose(); // Cierra la ventana de inicio de sesión actual
             } else {
                 // Mensaje de error si los datos son incorrectos
                 JOptionPane.showMessageDialog(this, "EL USUARIO NO ESTÁ EN EL SISTEMA");
